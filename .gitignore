@@ -1,6 +1,11 @@
 .venv
 onnxocr/
-ok_tasks/
+# ok_tasks/ 是自定义任务目录。上游把它整个忽略，但本 fork 的 ScoreEcho 集成就放在
+# 这里，需要纳入版本控制：只跟踪顶层 .py，仍忽略 assets/、processed/ 等运行时产物。
+# 注意必须写 ok_tasks/* 而不是 ok_tasks/——后者会把目录整个排除，导致下面的
+# 否定规则永远不生效（Git 无法重新包含父目录已被排除的文件）。
+ok_tasks/*
+!ok_tasks/*.py
 updates/
 working/
 update/
@@ -8,6 +13,9 @@ tesseract
 cache/
 models
 fonts
+# 声骸评分任务的工作目录（用户截图与评分结果，不入库）
+screenshots_to_score/
+screenshots_scored/
 # Byte-compiled / optimized / DLL files
 .idea/
 __pycache__/
